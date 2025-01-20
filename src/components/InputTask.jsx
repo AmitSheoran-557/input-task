@@ -30,11 +30,11 @@ const InputTask = () => {
 
     const searchBar = (e) => {
         const searchValue = e.target.value.toLowerCase();
-        const filtered = allData.filter((entry) => {
+        const filtered = allData.filter((data) => {
             return (
-                entry.firstName.toLowerCase().includes(searchValue) ||
-                entry.lastName.toLowerCase().includes(searchValue) ||
-                entry.email.toLowerCase().includes(searchValue)
+                data.firstName.toLowerCase().includes(searchValue) ||
+                data.lastName.toLowerCase().includes(searchValue) ||
+                data.email.toLowerCase().includes(searchValue)
             );
         });
 
@@ -72,11 +72,11 @@ const InputTask = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredData.map((entry, index) => (
+                            {filteredData.map((data, index) => (
                                 <tr key={index}>
-                                    <td className='border-2 border-sky-400 px-3 py-1'>{entry.firstName}</td>
-                                    <td className='border-2 border-sky-400 px-3 py-1'>{entry.lastName}</td>
-                                    <td className='border-2 border-sky-400 px-3 py-1'>{entry.email}</td>
+                                    <td className='border-2 border-sky-400 px-3 py-1'>{data.firstName}</td>
+                                    <td className='border-2 border-sky-400 px-3 py-1'>{data.lastName}</td>
+                                    <td className='border-2 border-sky-400 px-3 py-1'>{data.email}</td>
                                 </tr>
                             ))}
                         </tbody>
