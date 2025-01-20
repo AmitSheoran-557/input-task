@@ -1,0 +1,6 @@
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+.red{
+    color: red;
+}
