@@ -1,6 +1,16 @@
-.hide-scroll::-webkit-scrollbar {
-    display: none;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.font-poppins {
+    font-family: "Poppins", serif;
 }
-.red{
-    color: red;
+
+* {
+    font-family: "Josefin Sans", serif;
+}
+
+.bg-gradient:hover {
+    background: linear-gradient(149.67deg, #815CC8 29.44%, #1BABFE 81.54%);
+    box-shadow: 0px 8px 30px 0px #1BABFE;
+    transition: all 0.3s ease-in-out;
 }

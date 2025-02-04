@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const InputTask = () => {
-    const [firstName, setFirstName] = useState([]);
     const [firstNameContent, setFirstNameContent] = useState('');
-    const [lastName, setLastName] = useState([]);
     const [lastNameContent, setLastNameContent] = useState('');
-    const [email, setEmail] = useState([]);
     const [emailContent, setEmailContent] = useState('');
-
     const [filteredData, setFilteredData] = useState([]);
     const [allData, setAllData] = useState([]);
 
@@ -18,15 +14,26 @@ const InputTask = () => {
             const newEntry = { firstName: firstNameContent, lastName: lastNameContent, email: emailContent };
             setFilteredData([...filteredData, newEntry]);
             setAllData([...allData, newEntry]);
-
-            setFirstName([...firstName, firstNameContent]);
-            setLastName([...lastName, lastNameContent]);
-            setEmail([...email, emailContent]);
             setFirstNameContent('');
             setLastNameContent('');
             setEmailContent('');
         }
     };
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('allData');
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            setAllData(parsedData);
+            setFilteredData(parsedData);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (allData.length > 0) {
+            localStorage.setItem('allData', JSON.stringify(allData));
+        }
+    }, [allData]);
 
     const searchBar = (e) => {
         const searchValue = e.target.value.toLowerCase();
@@ -39,10 +46,15 @@ const InputTask = () => {
         });
 
         setFilteredData(filtered);
-
         if (searchValue === '') {
             setFilteredData(allData);
         }
+    };
+
+    const clearAllData = () => {
+        localStorage.removeItem('allData'); 
+        setAllData([]);                     
+        setFilteredData([]);                
     };
 
     return (
@@ -56,7 +68,7 @@ const InputTask = () => {
                     <input className='border-2 w-full lg:placeholder:text-lg text-base text-gray-500 min-w-xs max-w-xs border-gray-400 rounded-lg lg:px-5 lg:py-5 px-3 md:py-4 py-3' value={emailContent}
                         onChange={(e) => setEmailContent(e.target.value)} type="email" placeholder='Enter your email' />
                 </div>
-                <button onClick={handleChange} className='lg:px-7 px-6 py-1 bg-blue-600 hover:bg-blue-800 transition-all ease-linear duration-300 lg:mt-7 mt-5 text-white rounded-md lg:text-lg text-base'>
+                <button onClick={handleChange} className='lg:px-7 px-6 py-1 bg-indigo-600 hover:bg-indigo-800 transition-all ease-linear duration-300 lg:mt-7 mt-5 text-white rounded-md lg:text-lg text-base'>
                     Add
                 </button>
                 <div className="flex gap-3 lg:mt-10 mt-7 w-full mx-auto justify-center">
@@ -82,6 +94,10 @@ const InputTask = () => {
                         </tbody>
                     </table>
                 </div>
+
+                <button onClick={clearAllData} className='lg:px-7 px-6 py-2 bg-red-600 hover:bg-red-800 transition-all ease-linear duration-300 lg:mt-7 mt-5 text-white rounded-md lg:text-lg text-base'>
+                    Clear All Data
+                </button>
             </div>
         </div>
     );
